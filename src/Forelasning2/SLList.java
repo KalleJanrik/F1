@@ -20,14 +20,14 @@ public class SLList<E> implements Iterable<E> {
         System.out.println(list.get(2));
 
 
-        list.remove(9);
+        list.remove(10);
         list.printDataHeadTailSize("Testing to remove last item");
 
         list.remove(3);
         list.printDataHeadTailSize("Testing to remove in the middle");
 
 
-        list.add(4, "Mellan 5 och 6");
+        list.add(5, "Mellan 5 och 6");
         list.printDataHeadTailSize("Testing to add in the middle");
 
         list.remove(0);
@@ -59,7 +59,7 @@ public class SLList<E> implements Iterable<E> {
     }
 
     public void printDataHeadTailSize() {
-        printDataHeadTailSize(" ");
+        printDataHeadTailSize("Blank test");
     }
 
     public void printDataHeadTailSize(String test) {
@@ -103,7 +103,7 @@ public class SLList<E> implements Iterable<E> {
         checkIndex(index);
         if (index == 0) {
             addFirst(item);
-        } else if (index == (size - 1)) {
+        } else if (index == size ) {
             addAfter(tail, item);
         } else {
             Node<E> node = getNode(index - 1);
@@ -178,13 +178,15 @@ public class SLList<E> implements Iterable<E> {
     }
 
     private Node<E> getNode(int index) {
+        if(index == (size - 1))
+            return tail;
         Node<E> node = head;
         for (int i = 0; i < index && node != null; i++) {
             node = node.next;
         }
-        //TODO: Kan man göra en iterator istället?
         return node;
     }
+
 
     // TODO: beror index på olika variabler?
     private void checkIndex(int index) {
@@ -206,13 +208,9 @@ public class SLList<E> implements Iterable<E> {
     private class Itr implements Iterator<E> {
 
         private Node<E> current;
-        private Node<E> beforeCurrent;
-        private Node<E> beforeBeforeCurrent;
 
         public Itr(Node<E> start) {
             this.current = start;
-            this.beforeCurrent = null;
-            this.beforeBeforeCurrent = null;
         }
 
         @Override
